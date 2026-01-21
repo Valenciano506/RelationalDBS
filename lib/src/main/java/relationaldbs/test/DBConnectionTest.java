@@ -27,15 +27,24 @@ public class DBConnectionTest {
 			
 			createDataBase(conn);
 			
+			String dropTableSQL = "drop table if exists users";
+			PreparedStatement ps = conn.prepareStatement(dropTableSQL);
+			ps.executeUpdate();
+			ps.close();
+						
 			//Table creation SQL
 			String createTableSQL = "create table if not exists users(" + "id integer not null," + "usernamne VARCHAR(255)," + "psw VARCHAR(255)," + "isVIP TINYINT(1)," + "balance FLOAT," + "PRIMARY KEY (id)" + ")";
 			
-			PreparedStatement ps = conn.prepareStatement(createTableSQL);
+			ps = conn.prepareStatement(createTableSQL);
 			//ps.execute();
 			ps.executeUpdate();
 			
 			//Insert SQL
 			String insertSQL = "insert into users values(10, 'Manolo'," + " '12343', 1, 234.3), (20, 'Alejandro', '123', 1, 234.3)";
+			
+			ps = conn.prepareStatement(insertSQL);
+			System.out.println(ps.executeUpdate());
+			ps.close();
 			
 			//Delete SQL
 			String deleteSQL = "DELETE FROM users WHERE username = 'Alejandro'";
