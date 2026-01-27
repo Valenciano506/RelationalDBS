@@ -4,6 +4,7 @@ package relationaldbs.test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBConnectionTest {
@@ -40,17 +41,19 @@ public class DBConnectionTest {
 			ps.executeUpdate();
 			
 			//Insert SQL
-			String insertSQL = "insert into users values(10, 'Manolo'," + " '12343', 1, 234.3), (20, 'Alejandro', '123', 1, 234.3)";
+			String insertSQL = "insert into users (10, 'Manolo'," + " '12343', 1, 234.3), (20, 'Alejandro', '123', 1, 234.3)";
 			
 			ps = conn.prepareStatement(insertSQL);
 			System.out.println(ps.executeUpdate());
 			ps.close();
 			
-			//Delete SQL
-			String deleteSQL = "DELETE FROM users WHERE username = 'Alejandro'";
+			selectByName(ps, conn, "Manolo");
+			selectByName(ps, conn, "Lucas");
 			
-			//Select psw, isVIP from users where username = 'Manolo';
-			String selectSQL = "select * from users where username = 'Manolo'";
+			
+						
+			deleteByName(ps, conn, "Panbro");
+			deleteByName(ps, conn, "Sansha");
 			
 			/*
 			 * String createTableSQL = 
@@ -69,6 +72,42 @@ public class DBConnectionTest {
 		
 	}
 	
+	private static void selectByName(PreparedStatement ps, Connection conn, String name) throws SQLException {
+		
+		//Select psw, isVIP from users where username = 'Manolo';
+		String selectSQL = "select * from users where username = " + name;
+		
+		ps = conn.prepareStatement(selectSQL);
+		System.out.println(ps.executeUpdate());
+		
+		//We use the "next()" to check if we have reached the end of the result set
+		//If receive true, then there is more data
+		//rs.next();
+		//We can use a series of "getXXXX" methods to access each column of each row of data
+		try(ResultSet rs = ps.getResultSet()){				
+			
+			if(rs.next()) {
+				System.out.println(rs.getString("username"));
+				System.out.println(rs.getString("psw"));
+				System.out.println(rs.getBoolean("isVIP"));
+			}
+		}		
+					
+		ps.close();
+		
+	}
+
+	private static void deleteByName(PreparedStatement ps, Connection conn, String name) throws SQLException {
+		
+		//Delete SQL
+		String deleteSQL = "DELETE FROM users WHERE username = " + name;
+		
+		ps = conn.prepareStatement(deleteSQL);
+		System.out.println(ps.executeUpdate());
+		ps.close();
+		
+	}
+
 	private static void createDataBase(Connection conn) {
 		
 		try {
