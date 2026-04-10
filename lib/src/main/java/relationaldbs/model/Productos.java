@@ -84,7 +84,6 @@ public class Productos {
 	
 	//constructors
 	public Productos(String model, long price, int year, long kms, int cv, String color, long id) {
-		super();
 		this.model = model;
 		this.price = price;
 		this.year = year;
