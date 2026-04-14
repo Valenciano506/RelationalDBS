@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao{
 	private final static String password = "admin";
 
 	@Override
-	public boolean insert(User User) {
+	public boolean insert(User user) {
 		//the ingredients that we need to do the task
 		//insert sql
 		String insertSQL = "insert into users (name, password, balance, dni, email, age, tlf, adress)" + "values (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -30,9 +30,16 @@ public class UserDaoImpl implements UserDao{
 			Connection conn = DriverManager.getConnection(dbURL, username, password);
 			//create an object of PreparedStatement which allows us to prepare, send and execute sqls
 			PreparedStatement ps = conn.prepareStatement(insertSQL)) {
-			ps.setString(1, User.getName());
-			ps.setString(2, User.getPassword());
-			//ps.setString();
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getPassword());
+			ps.setDouble(3, user.getBalance());
+			ps.setLong(4, user.getDni());
+			ps.setString(5, user.getEmail());
+			ps.setInt(6, user.getAge());
+			ps.setLong(7, user.getTlf());
+			ps.setString(8, user.getAdress());
+			ps.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
