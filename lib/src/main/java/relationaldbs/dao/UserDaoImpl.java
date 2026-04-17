@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao{
 			PreparedStatement ps = conn.prepareStatement(insertSQL)) {
 			ps.setString(1, user.getName());
 			ps.setString(2, user.getPassword());
-			ps.setDouble(3, user.getBalance());
+			ps.setFloat(3, user.getBalance());
 			ps.setLong(4, user.getDni());
 			ps.setString(5, user.getEmail());
 			ps.setInt(6, user.getAge());

@@ -16,7 +16,7 @@ public class User {
 	private String password;
 	
 	//The money that the user has in his account
-	private double balance;
+	private float balance;
 	
 	private long id;
 	
@@ -47,11 +47,11 @@ public class User {
 		this.password = password;
 	}
 
-	public double getBalance() {
+	public float getBalance() {
 		return balance;
 	}
 
-	public void setBalance(double balance) {
+	public void setBalance(float balance) {
 		this.balance = balance;
 	}
 
@@ -104,7 +104,7 @@ public class User {
 	}
 
 	//constructors
-	public User(String name, String password, double balance, long id, long dni, String email, int age, long tlf, String adress) {
+	public User(String name, String password, float balance, long id, long dni, String email, int age, long tlf, String adress) {
 		super();
 		this.name = name;
 		this.password = password;
