@@ -1,0 +1,30 @@
+/**
+ * 
+ */
+package relationaldbs.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/*
+ *
+ * @author Valenciano
+ * 23 abr 2026
+ */
+public class DBHelper {
+	
+	private final static String dbURL = "jdbc:postgresql://localhost:5432/postgres";
+	private final static String username = "postgres";
+	private final static String password = "admin";
+	
+	public static Connection getConnection() {
+		try {
+			return DriverManager.getConnection(dbURL, username, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}

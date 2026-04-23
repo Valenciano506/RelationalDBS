@@ -6,10 +6,6 @@ import java.sql.*;
 
 public class ProductDaoImpl implements ProductDao {
 
-    private final static String dbURL = "jdbc:postgresql://localhost:5432/postgres";
-    private final static String username = "postgres";
-    private final static String password = "admin";
-
     @Override
     public boolean insert(Productos producto) {
         String insertSQL = "INSERT INTO productos (modelo, precio, año, kms, cv, color) " +

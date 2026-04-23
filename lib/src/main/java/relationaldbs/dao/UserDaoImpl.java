@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.qos.logback.classic.db.DBHelper;
 import relationaldbs.model.User;
 
 /*
@@ -17,10 +18,6 @@ import relationaldbs.model.User;
  */
 public class UserDaoImpl implements UserDao{
 	
-	private final static String dbURL = "jdbc:postgresql://localhost:5432/postgres";
-	private final static String username = "postgres";
-	private final static String password = "admin";
-
 	@Override
 	public boolean insert(User user) {
 		//the ingredients that we need to do the task
@@ -29,7 +26,7 @@ public class UserDaoImpl implements UserDao{
 		
 		try (
 			//create an object of Connection to establish a network connection with the database used in our program
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			Connection conn = DBHelper.getConnection();
 			//create an object of PreparedStatement which allows us to prepare, send and execute sqls
 			PreparedStatement ps = conn.prepareStatement(insertSQL)) {
 			ps.setString(1, user.getName());
