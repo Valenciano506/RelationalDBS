@@ -1,15 +1,15 @@
 package relationaldbs.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.qos.logback.classic.db.DBHelper;
+
 import relationaldbs.model.User;
+import relationaldbs.util.DBHelper;
 
 /*
  *
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao{
 	    String deleteSQL = "DELETE FROM users WHERE id = ?";
 
 	    try (
-	        Connection conn = DriverManager.getConnection(dbURL, username, password);
+	        Connection conn = DBHelper.getConnection();
 	        PreparedStatement ps = conn.prepareStatement(deleteSQL)) {
 
 	        ps.setLong(1, id);
@@ -70,7 +70,7 @@ public class UserDaoImpl implements UserDao{
                 "email = ?, age = ?, tlf = ?, adress = ? WHERE id = ?";
 
 try (
- Connection conn = DriverManager.getConnection(dbURL, username, password);
+ Connection conn = DBHelper.getConnection();
  PreparedStatement ps = conn.prepareStatement(updateSQL)) {
 
  ps.setString(1, user.getName());
@@ -95,7 +95,7 @@ try (
 	    User user = null;
 
 	    try (
-	        Connection conn = DriverManager.getConnection(dbURL, username, password);
+	        Connection conn = DBHelper.getConnection();
 	        PreparedStatement ps = conn.prepareStatement(findSQL)) {
 
 	        ps.setLong(1, id);
@@ -117,7 +117,7 @@ try (
 	    User user = null;
 
 	    try (
-	        Connection conn = DriverManager.getConnection(dbURL, username, password);
+	        Connection conn = DBHelper.getConnection();
 	        PreparedStatement ps = conn.prepareStatement(findSQL)) {
 
 	        ps.setString(1, email);
@@ -139,7 +139,7 @@ try (
 	    List<User> users = new ArrayList<>();
 
 	    try (
-	        Connection conn = DriverManager.getConnection(dbURL, username, password);
+	        Connection conn = DBHelper.getConnection();
 	        PreparedStatement ps = conn.prepareStatement(findAllSQL);
 	        ResultSet rs = ps.executeQuery()) {
 

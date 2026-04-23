@@ -1,6 +1,8 @@
 package relationaldbs.dao;
 
 import relationaldbs.model.Productos;
+import relationaldbs.util.DBHelper;
+
 import java.sql.*;
 
 
@@ -12,7 +14,7 @@ public class ProductDaoImpl implements ProductDao {
                            "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (
-            Connection conn = DriverManager.getConnection(dbURL, username, password);
+            Connection conn = DBHelper.getConnection();
             PreparedStatement ps = conn.prepareStatement(insertSQL)) {
 
             ps.setString(1, producto.getModel());
@@ -35,7 +37,7 @@ public class ProductDaoImpl implements ProductDao {
         String deleteSQL = "DELETE FROM productos WHERE id = ?";
 
         try (
-            Connection conn = DriverManager.getConnection(dbURL, username, password);
+            Connection conn = DBHelper.getConnection();
             PreparedStatement ps = conn.prepareStatement(deleteSQL)) {
 
             ps.setLong(1, id);
@@ -54,7 +56,7 @@ public class ProductDaoImpl implements ProductDao {
                            "kms = ?, cv = ?, color = ? WHERE id = ?";
 
         try (
-            Connection conn = DriverManager.getConnection(dbURL, username, password);
+            Connection conn = DBHelper.getConnection();
             PreparedStatement ps = conn.prepareStatement(updateSQL)) {
 
             ps.setString(1, producto.getModel());
@@ -77,7 +79,7 @@ public class ProductDaoImpl implements ProductDao {
         Productos producto = null;
 
         try (
-            Connection conn = DriverManager.getConnection(dbURL, username, password);
+            Connection conn = DBHelper.getConnection();
             PreparedStatement ps = conn.prepareStatement(findSQL)) {
 
             ps.setLong(1, id);
